@@ -143,7 +143,7 @@ void prob_draw(void) {
         if (i == (PROBQUEUE/2))
             printf(" <--");
 
-        printf("\n");
+        printf("\n\n");
     }
     printf("\n");
     printf("ANSWER> ");
