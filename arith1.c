@@ -21,6 +21,8 @@ struct prob {
 /* MUST BE ODD */
 #define PROBQUEUE           11
 
+int                         op_counter = 0;
+char                        current_op = '+';
 struct prob                 problist[PROBQUEUE] = { {0,0,0,0,0} };
 int                         probgen=(PROBQUEUE/2);
 const int                   probcursor=(PROBQUEUE/2);
@@ -68,8 +70,16 @@ void prob_fill(void) {
     while (probgen < PROBQUEUE) {
         struct prob *p = &problist[probgen++];
 
+        if (op_counter == 0) {
+            current_op = oplist[((unsigned int)rand() % 4)];
+            op_counter = 2 + ((unsigned int)rand() % 3);
+        }
+        else {
+            op_counter--;
+        }
+
 again:
-        p->op = oplist[((unsigned int)rand() % 4)];
+        p->op = current_op;
         if (p->op == '/') {
             /* organize division always so that the result would be whole, keep it simple */
             p->b = 1 + ((unsigned int)rand() % 10);
