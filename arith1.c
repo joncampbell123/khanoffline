@@ -117,10 +117,60 @@ void prob_draw(void) {
     printf("Hit CTRL+D or type 'quit' to quit.\n");
     printf("\n");
 
+    {
+        struct prob *p = &problist[probcursor-1];
+
+        if (p->op != 0 && p->correct < 0) {
+            if (p->op == '+') {
+                printf("\x1B" "[1;33m");        /* bright yellow */
+                printf("\x1B" "[5;50H");        /* row 5 col 50 */
+                printf(" %2u\n",(unsigned int)p->a);
+                printf("\x1B" "[6;50H");        /* row 6 col 50 */
+                printf("+%2u\n",(unsigned int)p->b);
+                printf("\x1B" "[7;50H");        /* row 7 col 50 */
+                printf("----\n");
+                printf("\x1B" "[8;50H");        /* row 8 col 50 */
+                printf(" %2u\n",(unsigned int)p->a + (unsigned int)p->b);
+
+                if ((p->a+p->b) > 10 && p->b > 5) {
+                    printf("\x1B" "[0;36m");        /* bright cyan */
+                    printf("\x1B" "[5;58H");        /* row 5 col 58 */
+                    printf(" %2u\n",(unsigned int)10);
+                    printf("\x1B" "[6;58H");        /* row 6 col 58 */
+                    printf("-%2u\n",(unsigned int)p->b);
+                    printf("\x1B" "[7;58H");        /* row 6 col 58 */
+                    printf("----\n");
+                    printf("\x1B" "[8;58H");        /* row 7 col 58 */
+                    printf("\x1B" "[1;33;44m");     /* bright cyan */
+                    printf(" %2u\n",(unsigned int)(10 - p->b));
+
+                    printf("\x1B" "[0;36m");        /* bright cyan */
+                    printf("\x1B" "[4;66H");        /* row 5 col 66 */
+                    printf(" %2u\n",(unsigned int)p->a);
+                    printf("\x1B" "[5;66H");        /* row 6 col 66 */
+                    printf("+%2u\n",(unsigned int)10);
+                    printf("\x1B" "[6;66H");        /* row 6 col 66 */
+                    printf("----\n");
+                    printf("\x1B" "[7;66H");        /* row 7 col 66 */
+                    printf(" %2u\n",(unsigned int)p->a + 10);
+                    printf("\x1B" "[8;66H");        /* row 7 col 66 */
+                    printf("\x1B" "[1;33;44m");     /* bright cyan */
+                    printf("-%2u\n",(unsigned int)(10 - p->b));
+                    printf("\x1B" "[9;66H");        /* row 8 col 66 */
+                    printf("\x1B" "[0;36m");        /* bright cyan */
+                    printf("----\n");
+                    printf("\x1B" "[10;66H");        /* row 8 col 66 */
+                    printf(" %2u\n",(unsigned int)p->a + (unsigned int)p->b);
+                }
+            }
+        }
+    }
+
     for (i=0;i < PROBQUEUE;i++) {
         struct prob *p = &problist[i];
 
         printf("\x1B" "[0m");   /* attributes off */
+        printf("\x1B" "[%d;1H",(i * 2) + 1 + 2);
         if (p->op != 0) {
             if (i == probcursor)
                 printf("\x1B" "[1;36m");    /* bright cyan */
