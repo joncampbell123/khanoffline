@@ -68,6 +68,7 @@ void prob_adv(void) {
 
 void prob_fill(void) {
     while (probgen < PROBQUEUE) {
+        struct prob *pp = probgen >= 1 ? &problist[probgen-1] : NULL;
         struct prob *p = &problist[probgen++];
 
         if (op_counter == 0) {
@@ -102,6 +103,14 @@ again:
             else if (p->op == '*') {
                 p->answer = p->a * p->b;
             }
+        }
+
+        /* don't make duplicates! */
+        if (pp != NULL) {
+            if (pp->a == p->a &&
+                pp->b == p->b &&
+                pp->op == p->op)
+                goto again;
         }
     }
 }
