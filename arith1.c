@@ -131,6 +131,37 @@ void prob_draw(void) {
                 printf("----\n");
                 printf("\x1B" "[8;50H");        /* row 8 col 50 */
                 printf(" %2u\n",(unsigned int)p->a * (unsigned int)p->b);
+
+                if ((p->a+p->b) > 10 && p->b > 5) {
+                    printf("\x1B" "[0;36m");        /* bright cyan */
+                    printf("\x1B" "[5;58H");        /* row 5 col 58 */
+                    printf(" %2u\n",(unsigned int)p->a);
+                    printf("\x1B" "[6;58H");        /* row 6 col 58 */
+                    printf("*%2u\n",(unsigned int)(10 - p->b));
+                    printf("\x1B" "[7;58H");        /* row 6 col 58 */
+                    printf("----\n");
+                    printf("\x1B" "[8;58H");        /* row 7 col 58 */
+                    printf("\x1B" "[1;33;44m");     /* bright cyan */
+                    printf(" %2u\n",(unsigned int)p->a * (unsigned int)(10 - p->b));
+
+                    printf("\x1B" "[0;36m");        /* bright cyan */
+                    printf("\x1B" "[4;66H");        /* row 5 col 66 */
+                    printf(" %2u\n",(unsigned int)p->a);
+                    printf("\x1B" "[5;66H");        /* row 6 col 66 */
+                    printf("*%2u\n",(unsigned int)10);
+                    printf("\x1B" "[6;66H");        /* row 6 col 66 */
+                    printf("----\n");
+                    printf("\x1B" "[7;66H");        /* row 7 col 66 */
+                    printf(" %2u\n",(unsigned int)p->a * 10);
+                    printf("\x1B" "[8;66H");        /* row 7 col 66 */
+                    printf("\x1B" "[1;33;44m");     /* bright cyan */
+                    printf("-%2u\n",(unsigned int)p->a * (unsigned int)(10 - p->b));
+                    printf("\x1B" "[9;66H");        /* row 8 col 66 */
+                    printf("\x1B" "[0;36m");        /* bright cyan */
+                    printf("----\n");
+                    printf("\x1B" "[10;66H");        /* row 8 col 66 */
+                    printf(" %2u\n",(unsigned int)p->a * (unsigned int)p->b);
+                }
             }
             else if (p->op == '-') {
                 printf("\x1B" "[1;33m");        /* bright yellow */
