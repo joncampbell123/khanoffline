@@ -121,7 +121,14 @@ void prob_draw(void) {
         struct prob *p = &problist[probcursor-1];
 
         if (p->op != 0 && p->correct < 0) {
-            if (p->op == '*') {
+            if (p->op == '/') {
+                printf("\x1B" "[1;33m");        /* bright yellow */
+                printf("\x1B" "[5;50H");        /* row 5 col 50 */
+                printf("%2u / %2u = %2u\n",(unsigned int)p->a,(unsigned int)p->b,(unsigned int)p->a / (unsigned int)p->b);
+                printf("\x1B" "[7;50H");        /* row 5 col 50 */
+                printf("%2u * %2u = %2u\n",(unsigned int)p->a / (unsigned int)p->b,(unsigned int)p->b,(unsigned int)p->a);
+            }
+            else if (p->op == '*') {
                 printf("\x1B" "[1;33m");        /* bright yellow */
                 printf("\x1B" "[5;50H");        /* row 5 col 50 */
                 printf(" %2u\n",(unsigned int)p->a);
