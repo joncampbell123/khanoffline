@@ -161,6 +161,11 @@ void prob_draw(void) {
                     printf("----\n");
                     printf("\x1B" "[10;66H");        /* row 8 col 66 */
                     printf(" %2u\n",(unsigned int)p->a * (unsigned int)p->b);
+
+                    assert(((unsigned int)p->a * (unsigned int)p->b) == (
+                        ((unsigned int)p->a * 10) -
+                        ((unsigned int)p->a * (unsigned int)(10 - p->b))
+                    ));
                 }
             }
             else if (p->op == '-') {
@@ -214,6 +219,8 @@ void prob_draw(void) {
                     printf("----\n");
                     printf("\x1B" "[10;66H");        /* row 8 col 66 */
                     printf(" %2u\n",(unsigned int)p->a + (unsigned int)p->b);
+
+                    assert(((unsigned int)p->a + (unsigned int)p->b) == ((unsigned int)p->a + 10 - (unsigned int)(10 - p->b)));
                 }
             }
         }
